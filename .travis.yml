@@ -28,7 +28,7 @@ after_success:
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
   - export GIT_TAG=PACKAGE_VERSION
-  - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_TAG"
   - test $TRAVIS_BRANCH = "master" && git push -q https://$GH_TOKEN@github.com/${TRAVIS_REPO_SLUG}.git --tags
 
 deploy:
@@ -36,5 +36,5 @@ deploy:
   token:
     secure: $FIREBASE_TOKEN
   project: dev
-  message: Deploying v$(node -p -e "require('./package.json').version") to Firebase
+  message: Deploying v$TRAVIS_TAG to Firebase
   skip_cleanup: true
