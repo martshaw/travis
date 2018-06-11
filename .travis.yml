@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-   - lts/*
+   - 8
    
 cache:
   directories:
@@ -20,10 +20,10 @@ install:
   - npm ci
 
 script:
-  - npm run build
+  -  npm run build
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./travis/confirm_no_existing_tag.sh; fi'
 
-  after_success:
+after_success:
   - export PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
